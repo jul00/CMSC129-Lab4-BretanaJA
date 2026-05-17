@@ -1,6 +1,10 @@
 # Task Manager App
 A very simple task manager app.
 
+## Live Deployment URL:
+[https://taskmanager-bretanaja.onrender.com](https://taskmanager-bretanaja.onrender.com) 
+
+
 ## User Stories
 - As a user, I want to create a task so that I can keep track of things I need to do.
 
@@ -113,6 +117,23 @@ http://localhost:3000
 ```
 
 3. To stop the local runtime process, press Ctrl + C in your terminal window.
+
+# CI/CD Setup
+
+This project implements a fully automated DevOps workflow using **GitHub Actions** for Continuous Integration (CI) and **Render** for Continuous Deployment (CD).
+
+### Pipeline Configuration & Mechanics
+* **CI Tool:** GitHub Actions (configured via `.github/workflows/ci.yml`)
+* **Workflow Triggers:** * Automatically executes on every `push` to the `main`/`master` branches.
+  * Automatically executes on every `pull_request` targeted at `main`/`master`.
+* **Deployment Gate:** Production deployment only proceeds if the Unit tests, Integration tests (Jest), and End-to-End System tests (Playwright) clear successfully.
+
+### Automated TDD Evidence
+### 1. ❌ Failure Phase
+![Failure Phase](pipeline-red.png)
+
+### 2. ✅ Success Phase
+![Success Phase](pipeline-green.png)
 
 # Test Results
 ## Unit Test Results 
