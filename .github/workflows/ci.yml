@@ -24,3 +24,10 @@ jobs:
 
     - name: Run Unit Tests
       run: npm run test:unit
+
+    # ─── ADD THESE PLAYWRIGHT STEPS ───
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Run System Tests
+      run: npx playwright test
