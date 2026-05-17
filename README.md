@@ -64,4 +64,5 @@ These tests ensure the entire application works correctly from the user’s pers
 
 **Tools used**: Playwright
 
-### Setup instructions
+## Test Results 
+![Unit Test Results](passing-unit-test.png)
