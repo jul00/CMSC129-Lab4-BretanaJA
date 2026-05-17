@@ -1,6 +1,11 @@
 function validateTask(title) {
-  // TODO: Implement actual validation logic during the GREEN phase
-  throw new Error("Not implemented");
+  if (!title || title.trim() === "") {
+    throw new Error("Title cannot be empty");
+  }
+  if (title.length > 50) {
+    throw new Error("Title cannot exceed 50 characters");
+  }
+  return true;
 }
 
 module.exports = { validateTask };
