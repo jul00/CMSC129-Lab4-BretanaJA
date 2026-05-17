@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "jest",
+    "start": "node backend/server.js",
     "test:unit": "jest tests/unit",
     "test:integration": "jest tests/integration"
   },
