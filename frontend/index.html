@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager App</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; padding: 0 20px; }
+        .task-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
+        .task-item.completed span { text-decoration: line-through; color: #888; }
+        .task-text { flex-grow: 1; margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Task Manager</h1>
+    
+    <div>
+        <input type="text" id="task-input" placeholder="Enter a task title...">
+        <button id="submit-task">Add Task</button>
+    </div>
+
+    <div id="task-list"></div>
+
+    <script>
+        const taskInput = document.getElementById('task-input');
+        const submitButton = document.getElementById('submit-task');
+        const taskList = document.getElementById('task-list');
+
+        // Fetch and render tasks on load
+        async function fetchTasks() {
+            const res = await fetch('/tasks');
+            const tasks = await res.json();
+            renderTasks(tasks);
+        }
+
+        function renderTasks(tasks) {
+            taskList.innerHTML = '';
+            tasks.forEach(task => {
+                const taskDiv = document.createElement('div');
+                // Adds 'completed' class matching User Story 2 assertion
+                taskDiv.className = `task-item ${task.completed ? 'completed' : ''}`;
+                
+                taskDiv.innerHTML = `
+                    <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} onclick="toggleTask(${task.id}, ${task.completed})">
+                    <span class="task-text">${task.title}</span>
+                    <button class="delete-btn" onclick="deleteTask(${task.id})">Delete</button>
+                `;
+                taskList.appendChild(taskDiv);
+            });
+        }
+
+        // Action: Create Task (User Story 1)
+        submitButton.addEventListener('click', async () => {
+            const title = taskInput.value.trim();
+            const res = await fetch('/tasks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title })
+            });
+
+            if (res.ok) {
+                taskInput.value = '';
+                fetchTasks();
+            } else {
+                const errorData = await res.json();
+                alert(errorData.error || 'Failed to create task');
+            }
+        });
+
+        // Action: Toggle Completed State (User Story 2)
+        async function toggleTask(id, currentStatus) {
+            // We use a PUT request to update the task status on the server
+            await fetch(`/tasks/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ completed: !currentStatus })
+            });
+            fetchTasks();
+        }
+
+        // Action: Delete Task (User Story 3)
+        async function deleteTask(id) {
+            await fetch(`/tasks/${id}`, {
+                method: 'DELETE'
+            });
+            fetchTasks();
+        }
+
+        // Initial Load
+        fetchTasks();
+    </script>
+</body>
+</html>

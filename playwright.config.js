@@ -6,7 +6,7 @@ module.exports = defineConfig({
   workers: 1,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:5173', // Vite's default local development port
+    baseURL: 'http://localhost:3000', // Vite's default local development port
     trace: 'on-first-retry',
   },
   // Automatically boot up your backend Express server before tests run

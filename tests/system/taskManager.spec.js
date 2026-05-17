@@ -5,7 +5,7 @@ test.describe('Task Manager End-to-End Application User Stories', () => {
 
     test.beforeEach(async ({ page }) => {
         // Open the local application frontend
-        await page.goto('http://localhost:5173'); 
+        await page.goto('http://localhost:3000'); 
     });
 
     test('User Story 1: Can create a task and see it displayed', async ({ page }) => {
