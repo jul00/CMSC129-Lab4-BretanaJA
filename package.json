@@ -24,6 +24,10 @@
   },
   "homepage": "https://github.com/jul00/CMSC129-Lab4-BretanaJA#readme",
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "jest": "^30.4.2"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }
